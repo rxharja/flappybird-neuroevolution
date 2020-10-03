@@ -18,6 +18,7 @@ class Pipe:
         self.PIPE_BOTTOM = PIPE_IMG
         self.passed = False
         self.set_height()
+        self.middle = (self.top + self.PIPE_TOP.get_height() + self.bottom)/2
 
     def set_height(self):
         self.height = random.randrange(50, 450)

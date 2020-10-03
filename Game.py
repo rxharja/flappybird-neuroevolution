@@ -71,24 +71,23 @@ def main():
         rem_birds = []
         
         for bird in birds:
-            if bird.x > pipes[0].x + bird.x/2 + pipes[0].PIPE_TOP.get_width()/2:
+            if bird.x > pipes[0].x + pipes[0].PIPE_TOP.get_width()/2:
                 closest_pipe = pipes[-1]
             else:
                 closest_pipe = pipes[0]
             closest_pipe = min(pipes, key=lambda pipe: abs(pipe.x - bird.x))
             # closest_pipe = pipes[-1]
             inputs = np.array([
-                bird.y - (closest_pipe.top + closest_pipe.PIPE_TOP.get_height() + closest_pipe.bottom)/2,
+                bird.y - closest_pipe.middle,
                 closest_pipe.x - bird.x,
                 closest_pipe.top + closest_pipe.PIPE_TOP.get_height(),
                 closest_pipe.bottom,
             ])
-            # print(inputs)
             bird.nn.X = inputs
-            bird.move()
+            bird.move(closest_pipe.middle)
             
             if bird.y + bird.img.get_height() > 730 or bird.y + bird.img.get_height() < 0:
-                bird.alive -= 10
+                # bird.alive -= 100
                 rem_birds.append(bird)
 
         base.move()

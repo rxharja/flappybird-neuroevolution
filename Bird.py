@@ -13,7 +13,7 @@ class Bird:
     ROT_VEL = 20
     ANIMATION_TIME = 5
 
-    def __init__(self, x, y, nn):
+    def __init__(self, x, y, nn, mutate=False):
         self.IMGS = BIRD_IMGS
         self.x = x
         self.y = y
@@ -26,14 +26,15 @@ class Bird:
         self.alive = 0
         self.pipes_passed = 0
         self.nn = nn
+        self.mutate = mutate
 
     def jump(self):
         self.vel = -10.5
         self.tick_count = 0
         self.height = self.y
     
-    def move(self):
-        self.alive += 1
+    def move(self, mid):
+        self.check_distance(mid)
         if self.nn.forward_prop() > 0.5:
             self.jump()
 
@@ -53,6 +54,10 @@ class Bird:
         else:
             if self.tilt >= -90:
                 self.tilt -= self.ROT_VEL
+    
+    def check_distance(self, mid, epsilon=10):
+        if abs(self.y - mid) < epsilon:
+            self.alive += 1
 
     def draw(self, win):
         self.img_count += 1
