@@ -71,6 +71,10 @@ def main():
         rem_birds = []
         
         for bird in birds:
+            if bird.x > pipes[0].x + bird.x/2 + pipes[0].PIPE_TOP.get_width()/2:
+                closest_pipe = pipes[-1]
+            else:
+                closest_pipe = pipes[0]
             closest_pipe = min(pipes, key=lambda pipe: abs(pipe.x - bird.x))
             # closest_pipe = pipes[-1]
             inputs = np.array([
