@@ -42,6 +42,14 @@ def main():
     ])
     population = Population(inputs)
     birds = population.members[:]
+    birds[-1].nn.theta = np.array(
+        [[ 0.76314658, 0.3645334, 0.99851746, -0.15675087],
+        [-0.88392422, -0.38872669, 0.66258692, 0.94892011],
+        [-0.26858695, -0.03098821, 0.0439891, -0.21977436],
+        [ 0.23092167, 0.57162172, 0.15491268, -0.22485136],
+        [ 0.50117003, 0.04667388, -0.08010465, 0.11969299],
+        [-0.83630789, 0.97021094, 0.21263142, 0.35092167]]
+    )
     base = Base(730)
     win = pygame.display.set_mode((500, 800))
     run = True
@@ -71,7 +79,7 @@ def main():
         rem_birds = []
         
         for bird in birds:
-            if bird.x > pipes[0].x + pipes[0].PIPE_TOP.get_width()/2:
+            if bird.x > pipes[0].x:
                 closest_pipe = pipes[-1]
             else:
                 closest_pipe = pipes[0]
