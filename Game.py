@@ -36,26 +36,26 @@ def main():
     pipes = [Pipe(600)]
     inputs = np.array([
         0,
+        0,
         pipes[-1].x - pipes[-1].PIPE_TOP.get_width(),
         pipes[-1].top + pipes[-1].PIPE_TOP.get_height(),
         pipes[-1].bottom,
     ])
     population = Population(inputs)
     birds = population.members[:]
-    birds[-1].nn.theta = np.array(
-        [[ 0.76314658, 0.3645334, 0.99851746, -0.15675087],
-        [-0.88392422, -0.38872669, 0.66258692, 0.94892011],
-        [-0.26858695, -0.03098821, 0.0439891, -0.21977436],
-        [ 0.23092167, 0.57162172, 0.15491268, -0.22485136],
-        [ 0.50117003, 0.04667388, -0.08010465, 0.11969299],
-        [-0.83630789, 0.97021094, 0.21263142, 0.35092167]]
-    )
+    # birds[-1].nn.theta = np.array(
+    #     [[ 0.76314658, 0.3645334, 0.99851746, -0.15675087],
+    #     [-0.88392422, -0.38872669, 0.66258692, 0.94892011],
+    #     [-0.26858695, -0.03098821, 0.0439891, -0.21977436],
+    #     [ 0.23092167, 0.57162172, 0.15491268, -0.22485136],
+    #     [ 0.50117003, 0.04667388, -0.08010465, 0.11969299],
+    #     [-0.83630789, 0.97021094, 0.21263142, 0.35092167]]
+    # )
     base = Base(730)
     win = pygame.display.set_mode((500, 800))
     run = True
 
     while run:
-        clock.tick(30)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -66,6 +66,7 @@ def main():
             pipes = [Pipe(600)]
             inputs = np.array([
                 0,
+                0,
                 pipes[-1].x - pipes[-1].PIPE_TOP.get_width(),
                 pipes[-1].top + pipes[-1].PIPE_TOP.get_height(),
                 pipes[-1].bottom,
@@ -74,19 +75,20 @@ def main():
             birds = population.members[:]
             base = Base(730)
             population.generation += 1
+            print(population.generation)
             score = 0
 
         rem_birds = []
         
         for bird in birds:
-            if bird.x > pipes[0].x:
+            if bird.x > pipes[0].x + (pipes[0].PIPE_TOP.get_width()/2) + (bird.img.get_width()):
                 closest_pipe = pipes[-1]
             else:
                 closest_pipe = pipes[0]
-            closest_pipe = min(pipes, key=lambda pipe: abs(pipe.x - bird.x))
-            # closest_pipe = pipes[-1]
+            # closest_pipe = min(pipes, key=lambda pipe: abs(pipe.x - bird.x))
             inputs = np.array([
                 bird.y - closest_pipe.middle,
+                bird.vel,
                 closest_pipe.x - bird.x,
                 closest_pipe.top + closest_pipe.PIPE_TOP.get_height(),
                 closest_pipe.bottom,
@@ -132,9 +134,9 @@ def main():
                 birds.remove(r)
             except:
                 pass
-
+        
         draw_window(win, base, birds, pipes, score, population.generation)
-
+        
     pygame.quit()
     quit()
 

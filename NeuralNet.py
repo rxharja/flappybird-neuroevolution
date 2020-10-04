@@ -3,7 +3,7 @@ import numpy as np
 
 class NeuralNet:
     '''
-        NeuroEvolution neural net implementing 4 inputs,
+        NeuroEvolution neural net implementing 5 inputs,
         a variable number of hidden layers and nodes,
         and one output.
     '''
@@ -17,26 +17,27 @@ class NeuralNet:
         self.initialize_weights()
         
     def initialize_weights(self):
-        rows = 5 + ((self.hidden_layers - 1) * self.hidden_nodes)
+        rows = 6 + ((self.hidden_layers - 1) * self.hidden_nodes)
         self.theta = 2 * np.random.random_sample((rows + (self.hidden_layers), self.hidden_nodes)) - 1
         self.final_bias = 2 * np.random.random_sample() - 1
         self.weights_init = True
 
     def sigmoid(self, z: np.array):
-        return np.array(1/(1 + np.exp(-z)), dtype=np.float128)
+        return 1/(1 + np.exp(-z))
+        # return np.maximum(0, z)
     
     def forward_prop(self):            
         a = None; sub_a = None; sub_z = None; sub_theta = None
-        a = np.zeros(((self.hidden_layers * self.hidden_nodes) + 4, 1))
-        a[0:4] = np.reshape(self.X, (4,1))
-        
-        a1 = np.c_[self.bias, a[0:4].T].T
-        theta1 = self.theta[0:5,:]
+        a = np.zeros(((self.hidden_layers * self.hidden_nodes) + 5, 1))
+        a[0:5] = np.reshape(self.X, (5,1))
+        a1 = self.sigmoid(a[0:5])
+        a1 = np.c_[self.bias, a1.T].T
+        theta1 = self.theta[0:6,:]
         z2 = theta1.T @ a1
         a2 = self.sigmoid(z2)
 
         sub_a = a2
-        row_start = 5
+        row_start = 6
         for i in range(0, self.hidden_layers - 1):
             sub_a = np.c_[self.bias, sub_a.T].T
             sub_theta = self.theta[row_start:row_start+self.hidden_nodes+1,:]
