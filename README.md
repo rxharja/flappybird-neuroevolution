@@ -19,7 +19,7 @@ This was done as a learning to experiment with hyperparameter tuning through a g
 ## Case
 One idea that could have been implemented was to screen grab every frame of the game, turn it into a matrix of values based on a grayscale numerical value unrolled into a vector and fed into neural network. While this would have been interesting to implement, 5 variable parameters were fed instead.
 
-![Image of parameters based on game](https://github.com/rxharja/flappybird-neuroevolution/blob/main/imgs/readme/Screen%20Shot%202020-10-04%20at%208.16.52%20PM.png)
+<img src="https://github.com/rxharja/flappybird-neuroevolution/blob/main/imgs/readme/Screen%20Shot%202020-10-04%20at%208.16.52%20PM.png" alt="Image of parameters based on game" width="400px" />
 
 - x scale distance to the next pipe
 - y scale distance to the middle of the next pipe's gap
