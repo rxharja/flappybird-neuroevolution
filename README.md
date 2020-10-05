@@ -1,4 +1,14 @@
 # flappybird-neuroevolution
+
+## To Run
+Simply clone the repo and run 'python3 Game.py' in the repo and it will begin training birds. A pretrained bird is included but commented out in Game.py if you would like to skip the training process to see how one performs.
+
+Dependencies needed:
+- Python 3.6+
+- NumPy
+- Pygame
+
+## What is this?
 Flappy Bird (the game) but it plays itself through a neural network using a NEAT algorithm in which the neural network's hyperparameters are set through a genetic algorithm. 
 
 The art assets and game code are taken and modified from "Tech With Tim's 'AI plays flappy bird series'." However, the neural net and evolutionary algorithm are coded from scratch with the help of NumPy for the vectorization and matrix capabilities. The game itself was coded with the help of the Pygame library.
