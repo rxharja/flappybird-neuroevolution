@@ -1,4 +1,5 @@
 # flappybird-neuroevolution
+![GIF of two birds training](https://github.com/rxharja/flappybird-neuroevolution/blob/main/imgs/readme/training.gif)
 
 ## To Run
 Simply clone the repo and run 'python3 Game.py' in the repo and it will begin training birds. A pretrained bird is included but commented out in Game.py if you would like to skip the training process to see how one performs.
